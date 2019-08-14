@@ -1,0 +1,139 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class room_instan : MonoBehaviour
+{
+    public GameObject cube;
+    public GameObject wall;
+    private int[,] room;
+    private Vector3[] doors;
+    private Vector3[] windows;
+    private Vector3[] tables;
+    private Vector3[] treasures;
+    private Vector3[] robots;
+    public Vector3[] euler_doors;
+    public Vector3[] euler_treasures;
+    public Vector3[] euler_win;
+    public Vector3[] euler_robot;
+
+    public GameObject win;
+    public GameObject table;
+    public GameObject treasure;
+    public GameObject robot;
+    public GameObject door;
+
+    public int wall_h = 7;
+    public float w = 3;
+    public float d = 2;
+    public float ta = 2;
+    public float trea = 2;
+    public float ro = 2;
+
+    private int roomID;
+    // Start is called before the first frame update
+    void Start()
+    {
+        roomID = (int)Random.Range(0, 7.5f);
+        room = new int[7, 7];
+        for (int i = 0; i < 7; i++)
+            for (int j = 0; j < 7; j++)
+            {
+                Instantiate(cube, new Vector3(i, 0, j), transform.rotation);
+            }
+        for(int i=0;i<wall_h;i++)
+        {
+            for (int j = 0; j < 7; j++)
+                Instantiate(wall, new Vector3(j+0.5f, i, -1.45f), transform.rotation);
+            for (int j = 8; j >= 0; j--)
+                Instantiate(wall, new Vector3(6.5f, i, j-0.5f), Quaternion.Euler(new Vector3(0,-90,0)));
+            for (int j = 1; j < 7; j++)
+                Instantiate(wall, new Vector3(j-0.5f, i, 6.5f), transform.rotation);
+            for (int j = 0; j <= 8; j++)
+                Instantiate(wall, new Vector3(-0.5f, i, j-0.5f), Quaternion.Euler(new Vector3(0, -90, 0)));
+        }
+        doors = new Vector3[] {
+        new Vector3(-0.5f,d,3),new Vector3(3,d,-0.5f),
+        new Vector3(6.5f,d,3),new Vector3(3,d,-0.5f),
+        new Vector3(-0.5f,d,3),new Vector3(3,d,6.5f),
+        new Vector3(6.5f,d,3),new Vector3(3,d,6.5f),
+        new Vector3(-0.5f,d,3),new Vector3(3,d,-0.5f),
+        new Vector3(6.5f,d,3),new Vector3(3,d,-0.5f),
+        new Vector3(-0.5f,d,3),new Vector3(3,d,6.5f),
+        new Vector3(6.5f,d,3),new Vector3(3,d,6.5f)
+        };
+        euler_doors = new Vector3[]{
+        new Vector3(0,90,0),new Vector3(0,0,0),
+        new Vector3(0,-90,0),new Vector3(0,0,0),
+        new Vector3(0,90,0),new Vector3(0,180,0),
+        new Vector3(0,-90,0),new Vector3(0,180,0),
+        new Vector3(0,90,0),new Vector3(0,0,0),
+        new Vector3(0,-90,0),new Vector3(0,0,0),
+        new Vector3(0,90,0),new Vector3(0,180,0),
+        new Vector3(0,-90,0),new Vector3(0,180,0)
+        };
+
+        windows = new Vector3[]{
+        new Vector3(6.4f,w,3),new Vector3(3,w,6.4f),
+        new Vector3(-0.7f,w,3),new Vector3(3,w,6.4f),
+        new Vector3(6.4f,w,3),new Vector3(3,w,-0.7f),
+        new Vector3(-0.7f,w,3),new Vector3(3,w,-0.7f),
+        new Vector3(6.4f,w,3),new Vector3(3,w,6.4f),
+        new Vector3(-0.7f,w,3),new Vector3(3,w,6.4f),
+        new Vector3(6.4f,w,3),new Vector3(3,w,-0.7f),
+        new Vector3(-0.7f,w,3),new Vector3(3,w,-0.7f)
+        };
+        euler_win = new Vector3[]{
+        new Vector3(0,90,0),new Vector3(0,0,0),
+        new Vector3(0,90,0),new Vector3(0,0,0),
+        new Vector3(0,90,0),new Vector3(0,0,0),
+        new Vector3(0,90,0),new Vector3(0,0,0),
+        new Vector3(0,90,0),new Vector3(0,0,0),
+        new Vector3(0,90,0),new Vector3(0,0,0),
+        new Vector3(0,90,0),new Vector3(0,0,0),
+        new Vector3(0,90,0),new Vector3(0,0,0)
+        };
+
+        tables = new Vector3[]{
+        new Vector3(1,ta,4),new Vector3(3,ta,4),new Vector3(2,ta,2),new Vector3(1,ta,2),
+        new Vector3(1,ta,4),new Vector3(3,ta,4),new Vector3(3,ta,3),new Vector3(4,ta,3)
+        };
+
+        treasures = new Vector3[]{
+        new Vector3(5,trea,1),new Vector3(1,trea,1),new Vector3(1,trea,4),new Vector3(3,trea,3),
+        new Vector3(1,trea,5),new Vector3(2,trea,1),new Vector3(2,trea,5),new Vector3(3,trea,3)
+        };
+        euler_treasures = new Vector3[]{
+        new Vector3(-90,0,0),new Vector3(-90,180,0),
+        new Vector3(-90,0,180),new Vector3(-90,-90,0),
+        new Vector3(-90,180,0),new Vector3(-90,-90,0),
+        new Vector3(-90,-90,0),new Vector3(-90,-90,0)
+        };
+
+        robots = new Vector3[] {
+        new Vector3(3,ro,3),new Vector3(5,ro,5),new Vector3(4,ro,5),new Vector3(1,ro,5),
+        new Vector3(3,ro,3),new Vector3(1,ro,1),new Vector3(2,ro,3),new Vector3(1,ro,1)
+        };
+        //euler_robot = new Vector3[]{
+        //new Vector3(0,0,0),new Vector3(),
+        //new Vector3(0,0,0),new Vector3(),
+        //new Vector3(),new Vector3(),
+        //new Vector3(),new Vector3()
+        //};
+        //doors ={ (0,3),(3,0) };
+        Instantiate(door, doors[2*roomID],Quaternion.Euler(euler_doors[2*roomID]));
+        Instantiate(door, doors[2*roomID+1], Quaternion.Euler(euler_doors[2*roomID+1]));
+        Instantiate(win, windows[2*roomID], Quaternion.Euler(euler_win[2*roomID]));
+        Instantiate(win, windows[2*roomID+1], Quaternion.Euler(euler_win[2*roomID+1]));
+        Instantiate(table, tables[roomID], transform.rotation);
+        Instantiate(robot, robots[roomID], transform.rotation);
+        Instantiate(treasure, treasures[roomID], Quaternion.Euler(euler_treasures[roomID]));
+        print(roomID);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
