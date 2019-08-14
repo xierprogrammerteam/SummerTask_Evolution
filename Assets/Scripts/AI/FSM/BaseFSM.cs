@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using ARPGSimpleDemo.Character;
+
 using System;
 
 namespace AI.FSM

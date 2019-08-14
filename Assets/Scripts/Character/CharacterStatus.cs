@@ -7,7 +7,6 @@ using System.Collections;
 /// </summary>
 public abstract class CharacterStatus : MonoBehaviour
 {
-
     /// <summary>
     /// 生命
     /// </summary>
@@ -37,10 +36,6 @@ public abstract class CharacterStatus : MonoBehaviour
     /// </summary>
     public float attackDistance = 2;
     /// <summary>
-    /// 移动速度
-    /// </summary>
-    public int speed = 10;
-    /// <summary>
     /// 防御力
     /// </summary>
     public int defence;
@@ -63,7 +58,12 @@ public abstract class CharacterStatus : MonoBehaviour
 
     #region 行为
 
-    /// <summary>受击 模板方法</summary>
+
+    /// <summary>
+    /// 受击 模板方法
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <param name="killer"></param>
     public virtual void OnDamage(int damage, GameObject killer)
     {
         //应用伤害
@@ -73,7 +73,12 @@ public abstract class CharacterStatus : MonoBehaviour
             Dead(killer);
     }
 
-    /// <summary>应用伤害</summary>
+    /// <summary>
+    /// 应用伤害
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <param name="killer"></param>
+    /// <returns></returns>
     public virtual int ApplyDamage(int damage, GameObject killer)
     {
         HP -= damage;

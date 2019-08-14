@@ -4,54 +4,50 @@ using System;
 using System.Diagnostics;
 
 
-namespace ARPGSimpleDemo.Character
+[RequireComponent(typeof(CharacterMotor))]
+public class CharacterInputController : MonoBehaviour
 {
-    [RequireComponent(typeof(CharacterMotor))]
-    public class CharacterInputController : MonoBehaviour
+    //private Rigidbody playerRigidbody;
+    private CharacterMotor motor;
+    //private CharacterAnimation chAnimation;
+    void Start()
     {
-        private CharacterMotor motor;
-        private DateTime lastClickTime;
+        motor = GetComponent<CharacterMotor>();
+        //chAnimation = GetComponent<CharacterAnimation>();
+    }
+    public void onKeyDown(string keyName)
+    {
 
-        private CharacterAnimation chAnimation;
-        private CharacterSkillSystem chSystem ;
+    }
+
+
+
+
+
+
+
+    // 判断是否落地
+    private bool grounded = true;
+
+    void Awake()
+    {
+        //playerRigidbody = GetComponent<Rigidbody>();
+        //animator = GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+        motor.Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        // Jump
+        if (Input.GetButtonDown("Jump"))
+        {
+            motor.JumpForSeconds();
+        }
+
+
+    }
 
  
 
-        void Start()
-        {
-            motor = GetComponent<CharacterMotor>();
-            chSystem = GetComponent<CharacterSkillSystem>();
-            chAnimation = GetComponent<CharacterAnimation>();
-        }
 
-
-
-        void Update()
-        {
-            motor.Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            if (Input.GetKeyDown("fire0"))onKeyDown("BaseSkill");
-            if (Input.GetKeyDown("fire1"))onKeyDown("Skill1");
-            if (Input.GetKeyDown("fire2")) onKeyDown("Skill2");
-            if (Input.GetKeyDown("fire3")) onKeyDown("Skill3");
-            if (Input.GetKeyDown("fire4")) onKeyDown("Skill4");
-        }
-        public void onKeyDown(string keyName)
-        {  
-            switch (keyName)
-            {
-                case "Skill1":
-                    chSystem.AttackUseSkill(1, false);
-                    break;
-                case "Skill2":
-                    chSystem.AttackUseSkill(2, false);
-                    break;
-                case "BaseSkill":
-                    chSystem.AttackUseSkill(3, false);
-                    break;
-            }  
-           
-           
-        }
-
-    }
 }
